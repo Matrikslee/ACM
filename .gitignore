@@ -7,3 +7,6 @@ output
 *.doc
 *.docx
 *.pdf
+*.o
+*.ii
+*.s
