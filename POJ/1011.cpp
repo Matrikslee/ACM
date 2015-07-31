@@ -8,8 +8,7 @@ int  totnum, requirenum, singlelen, totlen, sticklen[64];
 bool check(int curlen, int position, int finishnum);
 int  cmp(int a, int b) { return a>b; }
 
-int main(int argc, char const *argv[])
-{
+int main(int argc, char const *argv[]){
 	while(scanf("%d", &totnum) != EOF && totnum != 0){
 		totlen = 0;
 		for(int i = 0; i < totnum; ++i){
@@ -29,8 +28,7 @@ int main(int argc, char const *argv[])
 	return 0;
 }
 
-bool check(int curlen, int position, int finishnum)
-{
+bool check(int curlen, int position, int finishnum){
 	static bool flag[64] = {false};
 	bool ans = false;
 	if(curlen == singlelen){
