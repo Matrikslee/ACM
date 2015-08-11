@@ -1,5 +1,4 @@
 #include <stdio.h>
-#include <queue>
 
 struct node {
 	node *next;
