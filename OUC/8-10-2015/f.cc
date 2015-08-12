@@ -1,62 +1,33 @@
 #include <stdio.h>
+#include <queue>
 
 struct node {
-	node *next;
 	int position, weight;
-	node():position(0), weight(0), next(NULL){}
-	node(int p, int w): position(p), weight(w), next(NULL){}
-	node(int p, int w, node* n): position(p), weight(w), next(n){}
+	node() : position(0), weight(0){}
+	node(int p, int w) : position(p), weight(w){}
+	bool friend operator < (const node& a, const node& b){
+		return a.position>b.position || (a.position==b.position && a.weight>b.weight);
+	}
 	~node(){}
-};
-
-class priority_queue{
-	node *head;
-public:
-	priority_queue(){ head = new node(); }
-	bool empty(){ return NULL==head->next; }
-	void push(int position, int weight){
-		for(node *q = head; q!=NULL; q=q->next){
-			if( q->next==NULL || 
-				position < q->next->position || 
-				( position == q->next->position && weight<q->next->weight ) ) {
-				q->next = new node(position, weight, q->next);
-				break;
-			}
-		}
-	}
-	const node& front() const {
-		return *(head->next);
-	}
-	void pop() {
-		node *p = head->next;
-		head->next = p->next;
-		delete p;
-	}
-	~priority_queue(){
-		while(head->next!=NULL){
-			node *p = head->next;
-			head->next = p->next;
-			delete p;
-		}
-		delete head;
-	}
 };
 
 class person{
 	int position;
 	bool is_throw;
-	priority_queue road;
+	std::priority_queue<node> road;
 public:
-	person(): position(0),is_throw(true){}
-	~person() {}
+	person(): position(0), is_throw(true){ }
+	~person() { }
 	void putStone(int p, int w) {
-		road.push(p, w);
+		road.push(node(p, w));
 	}
 	void run() {
-		while( !road.empty() ){
-			int weight = road.front().weight;
-			position = road.front().position; road.pop();
-			if( is_throw ) { this->putStone(position+weight, weight); }
+		while( !road.empty() ) {
+			int weight = road.top().weight;
+			position = road.top().position; road.pop();
+			if( is_throw ) {
+				putStone(position+weight, weight);
+			}
 			is_throw = !is_throw;
 		}
 	}
