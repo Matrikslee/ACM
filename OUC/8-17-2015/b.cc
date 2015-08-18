@@ -9,7 +9,7 @@ inline int max(int a, int b) { return a>b?a:b; }
 struct node {
 	int p; 
 	node* next;
-	node():p(0), next(NULL) {}
+	node():p(0), next(NULL){}
 	node(int o, node* n):p(o), next(n){}
 } head[maxx], *pbuf=head, *e[maxn];
 
