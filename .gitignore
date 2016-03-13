@@ -10,3 +10,4 @@ output
 *.o
 *.ii
 *.s
+*.out
